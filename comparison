@@ -1,0 +1,23 @@
+import matplotlib.pyplot as plt
+import pandas as pd
+
+df = pd.read_csv(r'C:\Users\User\Desktop\Datasets\Bitcoin\bitcoin.csv',
+                 sep=',',
+                 header=0)
+
+print(df.head(0).to_string())
+df['generated$']= df['generatedCoins']*df['price(USD)']
+#print(df[['generatedCoins','price(USD)','generated$']].to_string())
+print(df.to_string())
+
+fig, axes = plt.subplots (1,1, figsize=(5,5))
+
+axes.plot(df['generated$'], linewidth='2' , color='red')
+axes.set_ylabel('Generated$', color='red')
+ax2 = axes.twinx()
+ax2.plot(df['generatedCoins'], linewidth='2', color='blue' )
+ax2.set_title('Generated$ vs Generated BTC')
+ax2.set_ylabel('Generated Coins', color='blue')
+plt.show()
+
+plt.close()
